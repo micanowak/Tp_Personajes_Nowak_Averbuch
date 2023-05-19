@@ -5,7 +5,6 @@ class Personaje {
     edad;
     peso;
     historia;
-    fk_Peliserie;
 }
 
 export default Personaje;

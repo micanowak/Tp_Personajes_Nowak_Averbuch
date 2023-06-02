@@ -48,6 +48,26 @@ app.get('/Personaje', async (req, res) => {
     res.status(200).send(Personaje)
 })
 
+app.get('/Personaje/:nombre', async (req, res) => {
+    const Personaje = await PersonajeServices.getByName(req.params.nom)
+    res.status(200).send(Personaje)
+
+})
+
+app.get('/Personaje/:edad', async (req, res) => {
+    const Personaje = await PersonajeServices.getByAge(req.params.edad)
+    res.status(200).send(Personaje)
+
+})
+
+app.get('/Personaje/:peso', async (req, res) => {
+    const Personaje = await PersonajeServices.getByWeight(req.params.peso)
+    res.status(200).send(Personaje)
+
+})
+
+
+
 
 /*app.get('/Personaje', async (req, res) => {
     const pizza = await PersonajeServices.getAll(req.params.id)

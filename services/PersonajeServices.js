@@ -270,5 +270,4 @@ export class PersonajeServices {
         }
         return returnEntity;
     }
-
 }

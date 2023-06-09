@@ -243,7 +243,7 @@ export class PersonajeServices {
 
     static getAllOrdered = async (ascORdesc) => {
         let returnEntity = null;
-        console.log('Estoy en: PersonajeServices.GetOrdered(ascORdesc)');
+        console.log('Estoy en: PersonajeServices.GetAllOrdered(ascORdesc)');
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()

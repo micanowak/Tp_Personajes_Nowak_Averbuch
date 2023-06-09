@@ -1,6 +1,6 @@
 import express from "express";
 const app = express();
-import { PersonajeServices } from "./services/PersonajeServices";
+import { PersonajeServices } from "./services/PersonajeServices.js";
 
 const port = 3000;
 
@@ -10,7 +10,8 @@ app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 })
 
-app.delete('/Personaje/:id', async (req, res) => {
+// no funca
+app.delete('/deletePersonaje/:id', async (req, res) => {
     try {
         await PersonajeServices.deleteById(req.params.id);
         res.status(200).json({ message: 'Personaje Eliminado'});
@@ -21,8 +22,17 @@ app.delete('/Personaje/:id', async (req, res) => {
     }
 })
 
-app.put('/Personaje/:id', async (req, res) => {
+// no funca
+app.get('/allPersonaje', async (req, res) => {
+    const Peliserie = await PersonajeServices.getAll()
+    res.status(200).send(Peliserie)
+
+})
+
+// verificado
+app.put('/updatePersonaje', async (req, res) => {
     try {
+        console.log(req.params.id);
         await PersonajeServices.update(req.params.id, req.body);
         res.status(200).json({ message: 'Personaje Actualizado'});
     } catch(error) {
@@ -32,7 +42,8 @@ app.put('/Personaje/:id', async (req, res) => {
     }
 })
 
-app.post('/Personaje', async (req, res) => {
+// verificado
+app.post('/insertPersonaje', async (req, res) => {
     console.log("en post, req:", req)
     try {
         await PersonajeServices.insert(req.body)
@@ -43,54 +54,53 @@ app.post('/Personaje', async (req, res) => {
     }
 })
 
-app.get('/Personaje', async (req, res) => {
-    const Personaje = await PersonajeServices.getNotAllAtributos()
+// verificado
+app.get('/notAllPersonaje', async (req, res) => {
+    const Personaje = await PersonajeServices.getNotAllAtributosPer()
     res.status(200).send(Personaje)
 })
 
-app.get('/Personaje/:nombre', async (req, res) => {
+// no funca
+app.get('/getPersonajeByNom/:nombre', async (req, res) => {
     const Personaje = await PersonajeServices.getByName(req.params.nom)
     res.status(200).send(Personaje)
 
 })
 
-app.get('/Personaje/:edad', async (req, res) => {
+// verificado
+app.get('/getPersonajeByEdad/:edad', async (req, res) => {
     const Personaje = await PersonajeServices.getByAge(req.params.edad)
     res.status(200).send(Personaje)
 
 })
 
-app.get('/Personaje/:peso', async (req, res) => {
+// verificado
+app.get('/getPersonaje/:peso', async (req, res) => {
     const Personaje = await PersonajeServices.getByWeight(req.params.peso)
     res.status(200).send(Personaje)
 
 })
 
-app.get('/Personaje/:idPelicula', async (req, res) => {
+// 
+app.get('/getPersonaje/:idPelicula', async (req, res) => {
     const Personaje = await PersonajeServices.getByPeliserie(req.params.idPelicula)
     res.status(200).send(Personaje)
 
 })
 
-app.get('/Peliserie', async (req, res) => {
+app.get('/notAllPeliserie', async (req, res) => {
     const Peliserie = await PersonajeServices.getNotAllAtributosPel()
     res.status(200).send(Peliserie)
 
 })
 
-app.get('/Peliserie', async (req, res) => {
-    const Peliserie = await PersonajeServices.getNotAllAtributosPel()
-    res.status(200).send(Peliserie)
-
-})
-
-app.get('/Peliserie', async (req, res) => {
+app.get('/getPeliserie', async (req, res) => {
     const Peliserie = await PersonajeServices.getAllPeli()
     res.status(200).send(Peliserie)
 
 })
 
-app.put('/Pelserie/:id', async (req, res) => {
+app.put('/updatePelserie/:id', async (req, res) => {
     try {
         await PersonajeServices.updatePeli(req.params.id, req.body);
         res.status(200).json({ message: 'Pelicula Actualizado'});
@@ -101,7 +111,7 @@ app.put('/Pelserie/:id', async (req, res) => {
     }
 })
 
-app.delete('/Peliserie/:id', async (req, res) => {
+app.delete('/deletePeliserie/:id', async (req, res) => {
     try {
         await PersonajeServices.deleteByIdPeli(req.params.id);
         res.status(200).json({ message: 'Peliserie Eliminado'});
@@ -112,7 +122,7 @@ app.delete('/Peliserie/:id', async (req, res) => {
     }
 })
 
-app.post('/Peliserie', async (req, res) => {
+app.post('/insertPeliserie', async (req, res) => {
     console.log("en post, req:", req)
     try {
         await PersonajeServices.insert(req.body)
@@ -123,13 +133,13 @@ app.post('/Peliserie', async (req, res) => {
     }
 })
 
-app.get('/Peliserie/:titulo', async (req, res) => {
+app.get('/getPeliserie/:titulo', async (req, res) => {
     const Peliserie = await PersonajeServices.getByTitulo(req.params.titulo)
     res.status(200).send(Peliserie)
 
 })
 
-app.get('/Peliserie/:order', async (req, res) => {
+app.get('/getPeliserie/:order', async (req, res) => {
     const Peliserie = await PersonajeServices.getAllOrdered(req.params.order)
     res.status(200).send(Peliserie)
 

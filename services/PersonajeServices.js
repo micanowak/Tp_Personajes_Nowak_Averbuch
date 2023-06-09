@@ -2,21 +2,6 @@ import config from '../db-config.js';
 import sql from 'mssql';
 
 export class PersonajeServices {
-    /*static getAll = async () => {
-        let returnEntity = null;
-        console.log('Estoy en: PersonajeServices.GetAll()');
-        try {
-            let pool = await sql.connect(config);
-            let result = await pool.request()
-                .query('SELECT * FROM pizza');
-            returnEntity = result.recordsets[0];
-        } catch (error) {
-            console.log(error);
-        }
-        return returnEntity;
-    }
-
-*/
 
     static getNotAllAtributosPer = async () => {
         let returnEntity = null;
@@ -101,13 +86,13 @@ export class PersonajeServices {
         return returnEntity;
     }
 
-    static getByName = async (nom) => {
+    static getByName = async (nombre) => {
         let returnEntity = null;
         console.log('Estoy en: PersonajeServices.GetByName(nom)');
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
-                .input('pName', sql.Char, nom)
+                .input('pName', sql.Char, nombre)
                 .query('SELECT * FROM Personaje WHERE nombre = @pName');
             returnEntity = result.recordsets[0][0];
         } catch (error) {

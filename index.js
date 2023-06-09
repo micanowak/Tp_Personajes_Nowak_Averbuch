@@ -10,7 +10,7 @@ app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 })
 
-// no funca
+// verificado
 app.delete('/deletePersonaje/:id', async (req, res) => {
     try {
         await PersonajeServices.deleteById(req.params.id);
@@ -22,7 +22,7 @@ app.delete('/deletePersonaje/:id', async (req, res) => {
     }
 })
 
-// no funca
+// verificado
 app.get('/allPersonaje', async (req, res) => {
     const Peliserie = await PersonajeServices.getAll()
     res.status(200).send(Peliserie)
@@ -81,25 +81,28 @@ app.get('/getPersonaje/:peso', async (req, res) => {
 
 })
 
-// 
+// no funca, peso
 app.get('/getPersonaje/:idPelicula', async (req, res) => {
     const Personaje = await PersonajeServices.getByPeliserie(req.params.idPelicula)
     res.status(200).send(Personaje)
 
 })
 
+// verificado
 app.get('/notAllPeliserie', async (req, res) => {
     const Peliserie = await PersonajeServices.getNotAllAtributosPel()
     res.status(200).send(Peliserie)
 
 })
 
+// verificado
 app.get('/getPeliserie', async (req, res) => {
     const Peliserie = await PersonajeServices.getAllPeli()
     res.status(200).send(Peliserie)
 
 })
 
+// verificado
 app.put('/updatePelserie/:id', async (req, res) => {
     try {
         await PersonajeServices.updatePeli(req.params.id, req.body);
@@ -111,6 +114,7 @@ app.put('/updatePelserie/:id', async (req, res) => {
     }
 })
 
+// verificado
 app.delete('/deletePeliserie/:id', async (req, res) => {
     try {
         await PersonajeServices.deleteByIdPeli(req.params.id);
@@ -122,6 +126,7 @@ app.delete('/deletePeliserie/:id', async (req, res) => {
     }
 })
 
+// verificado
 app.post('/insertPeliserie', async (req, res) => {
     console.log("en post, req:", req)
     try {
@@ -133,12 +138,14 @@ app.post('/insertPeliserie', async (req, res) => {
     }
 })
 
+// verificado
 app.get('/getPeliserie/:titulo', async (req, res) => {
     const Peliserie = await PersonajeServices.getByTitulo(req.params.titulo)
     res.status(200).send(Peliserie)
 
 })
 
+// no funca, titulo
 app.get('/getPeliserie/:order', async (req, res) => {
     const Peliserie = await PersonajeServices.getAllOrdered(req.params.order)
     res.status(200).send(Peliserie)

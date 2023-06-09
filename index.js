@@ -81,7 +81,7 @@ app.get('/getPersonajeByPeso/:peso', async (req, res) => {
 
 })
 
-// no funca, peso
+// verificado
 app.get('/getPersonaje/:idPelicula', async (req, res) => {
     const Personaje = await PersonajeServices.getByPeliserie(req.params.idPelicula)
     res.status(200).send(Personaje)
@@ -145,9 +145,16 @@ app.get('/getPeliserie/:titulo', async (req, res) => {
 
 })
 
-// no funca, titulo
-app.get('/getPeliserieOrder/:order', async (req, res) => {
-    const Peliserie = await PersonajeServices.getAllOrdered(req.params.order)
+// verificado
+app.get('/getPeliserieOrderAsc', async (req, res) => {
+    const Peliserie = await PersonajeServices.getAllOrderedAsc()
+    res.status(200).send(Peliserie)
+
+})
+
+// verificado
+app.get('/getPeliserieOrderDesc', async (req, res) => {
+    const Peliserie = await PersonajeServices.getAllOrderedDesc()
     res.status(200).send(Peliserie)
 
 })

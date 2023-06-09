@@ -138,7 +138,7 @@ export class PersonajeServices {
             let pool = await sql.connect(config);
             let result = await pool.request()
                 .input('pIdPeli', sql.Int, idPelicula)
-                .query('SELECT * from personaje where id = (SELECT fk_idPersonaje from Personaje_X_Peliserie where fk_idPelicula = @pIdPeli)');
+                .query('SELECT * from personaje inner join Personaje_X_Peliserie on Personaje.id=Personaje_X_Peliserie.fk_idPersonaje inner join Peliserie on Personaje_X_Peliserie.fk_idPelicula=Peliserie.id where fk_idPelicula = @pIdPeli');
             returnEntity = result.recordsets[0][0];
         } catch (error) {
             console.log(error);
@@ -241,15 +241,28 @@ export class PersonajeServices {
         return returnEntity;
     }
 
-    static getAllOrdered = async (ascORdesc) => {
+    static getAllOrderedAsc = async () => {
         let returnEntity = null;
-        console.log('Estoy en: PersonajeServices.GetAllOrdered(ascORdesc)');
+        console.log('Estoy en: PersonajeServices.GetAllOrderedAsc()');
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
-                .input('pAscDesc', sql.Char, ascORdesc)
-                .query('SELECT * FROM Peliserie order by fechaCreacion @pAscDesc');
-            returnEntity = result.recordsets[0][0];
+                .query('SELECT * FROM Peliserie order by fechaCreacion asc');
+            returnEntity = result.recordsets[0];
+        } catch (error) {
+            console.log(error);
+        }
+        return returnEntity;
+    }
+
+    static getAllOrderedDesc = async () => {
+        let returnEntity = null;
+        console.log('Estoy en: PersonajeServices.GetAllOrderedDesc()');
+        try {
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .query('SELECT * FROM Peliserie order by fechaCreacion desc');
+            returnEntity = result.recordsets[0];
         } catch (error) {
             console.log(error);
         }
